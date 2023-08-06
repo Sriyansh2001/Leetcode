@@ -1,58 +1,30 @@
-class Trie{
-public:
-    Trie* arr[26];
-    bool end;
-    Trie() {
-        for(int i=0 ; i<26 ; ++i) {
-            arr[i] = NULL;
-        }
-        end = false;
-    }
-};
-
 class Solution {
 public:
-    Trie *t;
-    vector<vector<int>> dp;
-
-    Solution() {
-        t = new Trie();
-    }
-
-    void insert(string &s) {
-        int n = s.length();
-        Trie *t = this->t;
-        for(int i=0 ; i<n ; ++i) {
-            if(t->arr[s[i]-'a'] == NULL) {
-                t->arr[s[i]-'a'] = new Trie();
-            }
-            t = t->arr[s[i]-'a'];
+    vector<int> dp;
+    set<string> st;
+    bool solve(string &s,int i) {
+        if(i == s.length()) {
+            return true;
         }
-        t->end = true;
-    }
-
-    bool search(string &s,int i,int j,Trie *tree) {
-        if(i>=s.length()) {
-            return tree->end;
+        if(dp[i]!=-1) {
+            return dp[i];
         }
+        string t="";
         bool res = false;
-        if(dp[i][j]!=-1) {
-            return dp[i][j];
+        for(int k=i ; k<min((int)s.length(),i+21) ; k++) {
+            t.push_back(s[k]);
+            if(st.find(t)!=st.end()) {
+                res |= solve(s,k+1);
+            }
         }
-        if(tree->end) {
-            res = res || search(s,i,0,t);
-        } 
-        if(tree->arr[s[i]-'a'] == NULL) {
-            return dp[i][j] = res;
-        }
-        return dp[i][j] = res || search(s,i+1,j+1,tree->arr[s[i]-'a']);
+        return dp[i] = res;
     }
 
     bool wordBreak(string s, vector<string>& wordDict) {
-        dp.resize(s.length(),vector<int> (s.length(),-1));
         for(auto i:wordDict) {
-            insert(i);
+            st.insert(i);
         }
-        return search(s,0,0,t);
+        dp.resize(s.length()+1,-1);
+        return solve(s,0);
     }
 };
