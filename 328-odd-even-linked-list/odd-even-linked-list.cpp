@@ -30,15 +30,10 @@ public:
                 if(list1->next) {
                     list1->next = list1->next->next;
                 }
-                list1 = list1->next;
+                if(list1->next)
+                    list1 = list1->next;
             }
             even_ptr = !even_ptr;
-        }
-
-        list1 = odd;
-
-        while(list1->next) {
-            list1 = list1->next;
         }
 
         list1->next = even;
