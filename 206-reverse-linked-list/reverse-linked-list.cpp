@@ -24,7 +24,7 @@ public:
     }
 };
 
-class Solution {
+class Solution2 {
 public:
     ListNode* reverseList(ListNode* head) {
         if(head==nullptr || head->next==nullptr) {
@@ -36,5 +36,26 @@ public:
         head->next = nullptr;
 
         return nxt;
+    }
+};
+
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == nullptr) {
+            return nullptr;
+        }
+        
+        ListNode* curr = head, *next = head->next, *root=nullptr;
+
+        while(curr) {
+            curr->next = root;
+            root = curr;
+            curr = next;
+            if(curr) next = curr->next;
+        }
+
+        return root;
     }
 };
