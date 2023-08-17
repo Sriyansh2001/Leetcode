@@ -17,27 +17,28 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if(head == NULL) {
-            return NULL;
-        }
+        // Initialization
         map<Node*,Node*> mp;
-        Node* curr = head;
-        Node* ans = new Node(-1);
-        Node* res = ans;
+        Node *curr = head, *ans = new Node(-1), *res = ans;
         mp[NULL] = NULL;
+        // Building list with reference pointers as NULL.
+        // Storing reference pointer in map.
         while(curr != NULL) {
             ans->next = new Node(curr->val);
             ans = ans->next;
             mp[curr] = ans;
             curr = curr->next;
         }
+        // Reinitalize
         curr = head;
         ans = res->next;
+        // assigning reference pointer of the list
         while(curr != NULL) {
             ans->random = mp[curr->random];
             curr = curr->next;
             ans = ans->next;
         }
-        return res->next;
+        // Returing head of newly created node.
+        return res->next;   
     }
 };
