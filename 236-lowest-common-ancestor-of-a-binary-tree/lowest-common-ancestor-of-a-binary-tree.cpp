@@ -9,15 +9,16 @@
  */
 class Solution {
     TreeNode* result(TreeNode* root,TreeNode* p,TreeNode* q) {
-        if(root ==  q || root == p) {
-            return root;
-        }
         if(root) {
+            if(root ==  q || root == p) return root;
+
             TreeNode* left = result(root->left,p,q);
             TreeNode* right = result(root->right,p,q);
+
             if(left && right) {
                 return root;
             }
+            
             if(left) return left;
             return right;
         }
