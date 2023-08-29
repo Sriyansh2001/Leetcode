@@ -11,7 +11,7 @@ public:
 
         for(int i=0 ; i<n ; ++i) {
             if(customers[i] == 'Y') open-=1;
-            if(customers[i] == 'N') close+=1;
+            else close+=1;
             total = open+close;
             if(total < penalty) {
                 penalty = total;
