@@ -19,9 +19,6 @@ public:
                 }
             }
         }
-        for(auto i:val) {
-            cout << i << " ";
-        }
         return n-val[n-1];
     }
 };
