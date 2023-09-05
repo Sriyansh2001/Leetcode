@@ -4,19 +4,12 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        dp = [-1 for i in range(n+1)]
-
-        def solve(n):
-            if(n == 0):
-                return 0
-            if(dp[n]!=-1):
-                return dp[n]
-            i=1
-            ans = int(1e10)
-            while(i*i <= n):
-                ans = min(ans,solve(n-(i*i))+1)
-                i+=1
-            dp[n] = ans
-            return ans
-        
-        return solve(n)
+        dp = [int(1e8) for i in range(n+1)]
+        dp[0] = 0
+        dp[1] = 1
+        for i in range(2,n+1):
+            j = 1
+            while(j*j <= i):
+                dp[i] = min(dp[i],1+dp[i-(j*j)])
+                j+=1
+        return dp[n]
