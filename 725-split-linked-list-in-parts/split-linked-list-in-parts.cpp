@@ -8,7 +8,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class Solution1 {
 public:
     vector<ListNode*> splitListToParts(ListNode* head, int k) {
         ListNode* temp = head;
@@ -53,5 +53,61 @@ public:
             if(temp) temp->next = NULL;
         }
         return ans;
+    }
+};
+
+
+class Solution {
+    int size_of(ListNode *head) {
+        int len = 0;
+        while(head) {
+            head = head->next;
+            ++len;
+        }
+        return len;
+    }
+
+    vector<ListNode*> assign_directly(ListNode* head,int k) {
+        vector<ListNode*> result;
+        int last = 0;
+        while(head) {
+            result.push_back(head);
+            head = head->next;
+            result[last]->next = NULL;
+            --k; ++last;
+        }
+        while(k--) {
+            result.push_back(NULL);
+        }
+        return result;
+    }
+
+    vector<ListNode*> compute_using_logics(ListNode* head, int k, int size) {
+        int diff = size/k, extra = size%k, len;
+        ListNode* temp;
+        vector<ListNode*> result;
+        while(head) {
+            result.push_back(head);
+            len = diff;
+            while(head && --len) {
+                head = head->next;
+            }
+            if(extra) {
+                head = head->next;
+                --extra;
+            }
+            temp = head;
+            if(head) head = head->next;
+            if(temp) temp->next = NULL;
+        }
+        return result;
+    }
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+        int size = size_of(head);
+        if(size > k) {
+            return compute_using_logics(head, k, size);
+        }
+        return assign_directly(head, k);
     }
 };
