@@ -11,7 +11,6 @@
 class Solution {
     ListNode* reverse(ListNode* head,int times) {
         ListNode* curr=head,*prev=NULL,*next;
-        cout << times << "\n";
         while(curr && times>0) {
             next = curr->next;
             curr->next = prev;
