@@ -1,14 +1,7 @@
 class Solution {
-public:
-    int minDeletions(string s) {
-        map<char,int> freq;
-        for(auto i:s) freq[i]+=1;
-        vector<int> fre;
-        for(auto i:freq) fre.push_back(i.second); 
-        sort(fre.begin(),fre.end());
-        int n = fre.size(), j = 0;
+    int compute_result(vector<int> &fre) {
         stack<int> st;
-        int answer = 0, mx = fre[n-1];
+        int n = fre.size(), j = 0, mx = fre[n-1], answer = 0;
         for(int i=1 ; i<=mx && j<n ; ++i) {
             if(fre[j] != i) {
                 st.push(i);
@@ -28,6 +21,17 @@ public:
                 }
             }
         }
+        return answer;
+    }
+
+public:
+    int minDeletions(string s) {
+        map<char,int> freq;
+        for(auto i:s) freq[i]+=1;
+        vector<int> fre;
+        for(auto i:freq) fre.push_back(i.second); 
+        sort(fre.begin(),fre.end());
+        int answer = compute_result(fre);
         return answer;
     }
 };
