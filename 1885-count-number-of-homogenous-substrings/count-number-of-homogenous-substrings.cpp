@@ -1,13 +1,14 @@
 class Solution {
 public:
     int countHomogenous(string s) {
-        long long ans = 0;
+        long long ans = 0,count;
+        char c;
         int n = s.length();
         int i=0;
 
         while(i<n) {
-            char c = s[i];
-            long long count = 0;
+            c = s[i];
+            count = 0;
             while(i<n && s[i] == c) {
                 i+=1;
                 count += 1;
