@@ -1,22 +1,17 @@
 class Solution {
 public:
     int maxFrequency(vector<int>& nums, int k) {
-        long ans = 0,n = nums.size(),j=0,s1 = 0,s2 = 0,happen,curr,area;
+        int ans = 0,n = nums.size(),j=n-1,happen,curr=0,area;
         sort(nums.begin(),nums.end());
-        for(int i=0 ; i<n ; ++i) {
-            s2 += nums[i];
-            happen = true;
-            while(happen) {
-                happen = false;
-                curr = s2-s1;
-                area = nums[i]*(i-j+1);
-                if(k + curr < area) {
-                    happen = true;
-                    s1 += nums[j];
-                    j+=1;
-                }
+        for(int i=n-1 ; i>=0 ; --i) {
+            while(j>=0 && curr+(nums[i]-nums[j]) <= k) {
+                curr += nums[i]-nums[j];
+                j-=1;
             }
-            ans = max(ans,i-j+1);
+            ans = max(ans,i-j);
+            if(i>0) {
+                curr -= (nums[i]-nums[i-1])*(i-j-1);
+            } 
         }
         return ans;
     }
