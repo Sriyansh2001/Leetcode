@@ -1,21 +1,16 @@
 class Solution {
 public:
     int reductionOperations(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        for(auto i:nums) {
-            mp[i]+=1;
-        }
-        priority_queue<int> q;
-        for(auto i:mp) {
-            q.push(i.first);
-        }
+        sort(nums.begin(),nums.end());
+        int n = nums.size();
         int ans = 0;
-        while(q.size() > 1) {
-            int k = q.top();
-            q.pop();
-            ans += mp[k];
-            if(q.size()) {
-                mp[q.top()] += mp[k];
+        for(int i=n-1 ; i>=0 ; ) {
+            int val = nums[i];
+            while(i>=0 && nums[i] == val) {
+                i-=1;
+            }
+            if(i>=0) {
+                ans = ans + n-i-1;
             }
         }
         return ans;
