@@ -2,7 +2,6 @@ class Solution {
 public:
     int largestSubmatrix(vector<vector<int>>& matrix) {
         int n = matrix.size(),m =  matrix[0].size();
-        vector<int> res(n,0);
         for(int i=n-2 ; i>=0 ; --i) {
             for(int j=0 ; j<m ; ++j) {
                 if(matrix[i][j]) {
