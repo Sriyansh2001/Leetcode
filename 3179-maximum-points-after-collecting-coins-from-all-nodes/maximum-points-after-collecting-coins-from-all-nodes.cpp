@@ -13,7 +13,7 @@ public:
             if(i == par) {
                 continue;
             }
-            a += solve(g,i,ind,(floor <= 25 ? floor+1: floor),coins,k);
+            a += solve(g,i,ind,(floor <= 15 ? floor+1: floor),coins,k);
             b += solve(g,i,ind,floor,coins,k);
         }
         
@@ -23,7 +23,7 @@ public:
     int maximumPoints(vector<vector<int>>& edges, vector<int>& coins, int k) {
         int n = edges.size();
         vector<vector<int>> g(n+1);
-        dp.resize(n+10,vector<int> (30,-1));
+        dp.resize(n+10,vector<int> (17,-1));
         for(int i=0 ; i<n ; ++i) {
             g[edges[i][0]].push_back(edges[i][1]);
             g[edges[i][1]].push_back(edges[i][0]);
