@@ -11,13 +11,11 @@ public:
                 colZero[j] += (grid[i][j] == 0);
             }
         }
-        vector<vector<int>> ans;
-        vector<int> res(m,0);
+        vector<vector<int>> ans(n,vector<int> (m,0));
         for(int i=0 ; i<n ; ++i) {
             for(int j=0 ; j<m ; ++j) {
-                res[j] = rowOne[i]+colOne[j]-rowZero[i]-colZero[j];
+                ans[i][j] = rowOne[i]+colOne[j]-rowZero[i]-colZero[j];
             }
-            ans.push_back(res);
         }
         return ans;
     }
