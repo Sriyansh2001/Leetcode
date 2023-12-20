@@ -26,7 +26,6 @@ public:
                 q.push({values[ind1][ind2],ind1,ind2});
             }
             ans = ans + values[ind1][ind2+1] * d;
-            cout << ans << "\n";
             d+=1;
         }
         return ans;
