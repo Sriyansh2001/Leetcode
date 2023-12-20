@@ -1,33 +1,28 @@
-class cmp {
-    public:
-    bool operator()(vector<int> &a,vector<int> &b) {
-        return a[0]>b[0];
-    }
-};
-
 class Solution {
 public:
     long long maxSpending(vector<vector<int>>& values) {
         int n = values.size();
         int m = values[0].size();
-        priority_queue<vector<int>,vector<vector<int>> , cmp> q;
+        int mn,val;
         long long d = 1,ans=0;
-
-        for(int i=0 ; i<n ; ++i) {
-            q.push({values[i][m-1],i,m-1});
-        }
-
-        while(!q.empty()) {
-            vector<int> k = q.top(); q.pop();
-            long long val = k[0];
-            int ind1 = k[1];
-            int ind2 = k[2]-1;
-            if(ind2 >= 0) {
-                q.push({values[ind1][ind2],ind1,ind2});
+        vector<int> v(n,m-1);
+        
+        while(1) {
+            mn = -1,val=INT_MAX;
+            for(int i=0 ; i<n ; ++i) {
+                if(v[i]>=0 && val > values[i][v[i]]) {
+                    mn = i;
+                    val = values[i][v[i]];
+                }
             }
-            ans = ans + values[ind1][ind2+1] * d;
+            if(mn == -1) {
+                return ans;
+            }
+            v[mn]-=1;
+            ans = ans + d * val;
             d+=1;
         }
+
         return ans;
     }
 };
