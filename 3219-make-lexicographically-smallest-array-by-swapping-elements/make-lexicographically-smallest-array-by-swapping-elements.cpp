@@ -10,7 +10,6 @@ public:
         priority_queue<int,vector<int> , greater<int>> q;
         int i=0;
         while(i<n) {
-            vector<int> ind;
             int j=i;
             q.push(temp[j][1]);
             while(j<n) {
