@@ -53,7 +53,7 @@ public:
         return false;
     }
 
-    //compue result.
+    //computing result.
     int result(vector<TreeNode*> &path) {
         int n = path.size();
         TreeNode* prev = path[n-1];
