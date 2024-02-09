@@ -37,9 +37,6 @@ public:
 
     bool canSortArray(vector<int>& nums) {
         bitsort(nums);
-        for(auto i:nums) {
-            cout << i << " ";
-        }
         return check_sort(nums);
     }
 };
