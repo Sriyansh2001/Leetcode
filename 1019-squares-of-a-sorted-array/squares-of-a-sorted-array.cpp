@@ -1,8 +1,6 @@
 class Solution {
-public:
-    vector<int> sortedSquares(vector<int>& nums) {
-        int index = 0;
-        int n = nums.size();
+    int getminimumValue(vector<int> &nums,int n) {
+        int index=0;
         while(index < n-1) {
             int prev = abs(nums[index]);
             int next = abs(nums[index+1]);
@@ -11,10 +9,16 @@ public:
             }
             index+=1;
         }
-        int left = index-1, right = index;
+        return index;
+    }
+
+    vector<int> getresult(vector<int> &nums,int index,int n) {
         vector<int> result;
+        int left = index-1, right = index;
+        int leftval,rightval;
         while(left >= 0 || right < n) {
-            int leftval=INT_MAX,rightval=INT_MAX;
+            leftval=INT_MAX;
+            rightval=INT_MAX;
             if(left >= 0) {
                 leftval = nums[left]*nums[left];
             }
@@ -30,6 +34,13 @@ public:
                 right+=1;
             }
         }
+        return result;
+    }
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        int n = nums.size();
+        int index = getminimumValue(nums,n);
+        vector<int> result = getresult(nums,index,n);
         return result;
     }
 };
