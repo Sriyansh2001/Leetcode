@@ -1,42 +1,37 @@
 class Solution {
+    int countSetBit(int num) {
+        int count = 0;
+        for(int i=0 ; i<31 ; ++i) {
+            if((num >> i) & 1) {
+                count += 1;
+            }
+        }
+        return count;
+    }
+
 public:
-    int calbit(int x) {
-        int ans = 0;
-        while(x) {
-            if(x&1) ans += 1;
-            x/=2;
-        }
-        return ans;
-    }
-
-    void bitsort(vector<int> &nums) {
-        int n = nums.size();
-        for(int i=0 ; i<n ; ++i) {
-            for(int j=i-1 ; j>=0 ; --j) {
-                if(calbit(nums[j]) == calbit(nums[j+1])) {
-                    if(nums[j] > nums[j+1]) {
-                        int temp = nums[j];
-                        nums[j] = nums[j+1];
-                        nums[j+1] = temp;
-                    }
-                }
-                else break;
-            }
-        }
-    }
-
-    bool check_sort(vector<int> &nums) {
-        int n = nums.size();
-        for(int i=0 ; i<n-1 ; ++i) {
-            if(nums[i]>nums[i+1]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     bool canSortArray(vector<int>& nums) {
-        bitsort(nums);
-        return check_sort(nums);
+        int n = nums.size();
+        int prevNumSetBit = -1;
+        int currentMin = INT_MAX, currentMax = INT_MIN, prevMax = INT_MIN;
+        for(int i=0 ; i<n ; ++i) {
+            int setBits = countSetBit(nums[i]);
+            if(setBits == prevNumSetBit || prevNumSetBit == -1) {
+                // logic to continue computation.
+                currentMin = min(currentMin, nums[i]);
+                currentMax = max(currentMax, nums[i]);
+            } else {
+                if(prevMax > currentMin) {
+                    return false;
+                }
+                prevMax = currentMax;
+                currentMin = INT_MAX;
+                currentMax = INT_MIN;
+                i-=1;
+            }
+            prevNumSetBit = setBits;
+        }
+        if(prevMax > currentMin) return false;
+        return true;
     }
 };
