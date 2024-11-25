@@ -34,13 +34,12 @@ public:
         return s;
     }
 
-    int solve(vector<vector<int>> &board, int i,int j, int moves) {
+    void solve(vector<vector<int>> &board, int i,int j, int moves) {
         string currentBoard = convertIntoString(board);
         if(hashMap.find(currentBoard) != hashMap.end() && hashMap[currentBoard] < moves) {
-            return hashMap[currentBoard];
+            return ;
         }
         hashMap[currentBoard] = moves;
-        int res = 1e6+1;
         for(auto d: dir) {
             int tempi = i+d[0];
             int tempj = j+d[1];
@@ -48,13 +47,13 @@ public:
                 temp = board[i][j];
                 board[i][j] = board[tempi][tempj];
                 board[tempi][tempj] = temp;
-                res = min(res, solve(board, tempi, tempj,moves + 1));
+                solve(board, tempi, tempj,moves + 1);
                 temp = board[i][j];
                 board[i][j] = board[tempi][tempj];
                 board[tempi][tempj] = temp;
             }
         }
-        return res;
+        return ;
     }
 
     int slidingPuzzle(vector<vector<int>>& board) {
@@ -66,8 +65,7 @@ public:
                 }
             }
         } 
-        int res = solve(board,tempi,tempj,0);
-
+        solve(board,tempi,tempj,0);
         if(hashMap.find("123450") == hashMap.end()) {
             return -1;
         } return hashMap["123450"];
