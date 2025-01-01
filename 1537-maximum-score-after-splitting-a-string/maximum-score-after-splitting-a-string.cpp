@@ -1,23 +1,19 @@
 class Solution {
 public:
     int maxScore(string s) {
-        int zero=0,one=0;
-        int n = s.length();
-        for(int i=1 ; i<n ; ++i) {
+        int ones = 0,n=s.length(),zeros=0,ans=0;
+        for(int i=0 ; i<n ; ++i) {
             if(s[i] == '1') {
-                one+=1;
+                ones++;
             }
         }
-        if(s[0] == '0') zero+=1;
-        int ans = 0;
-        for(int i=1 ; i<n ; ++i) {
-            ans = max(ans,zero+one);
-            if(s[i] == '0') {
-                zero+=1;
+        for(int i=0 ; i<n-1 ; ++i) {
+            if(s[i] == '1') {
+                ones--;
+            } else {
+                zeros++;
             }
-            if(s[i]=='1') {
-                one-=1;
-            }
+            ans = max(ans, ones+zeros);
         }
         return ans;
     }
