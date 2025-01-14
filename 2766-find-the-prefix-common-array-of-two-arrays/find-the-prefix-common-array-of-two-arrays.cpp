@@ -3,7 +3,7 @@ public:
     vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
         int n = A.size();
         vector<int> res(n,0);
-        set<int> st1,st2;
+        unordered_set<int> st1,st2;
         int total = n;
         for(int i=n-1 ; i>=0 ; --i) {
             res[i] = total;
