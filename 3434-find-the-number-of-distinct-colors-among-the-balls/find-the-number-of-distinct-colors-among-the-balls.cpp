@@ -7,10 +7,8 @@ public:
         for(int i=0 ; i<n ; ++i) {
             int ball = queries[i][0];
             int color = queries[i][1];
-            if(ballContainer.find(ball) != ballContainer.end()) {
-                if(!--colorContainer[ballContainer[ball]]) {
-                    colorContainer.erase(ballContainer[ball]);
-                }
+            if(ballContainer.find(ball) != ballContainer.end() && !--colorContainer[ballContainer[ball]]) {
+                colorContainer.erase(ballContainer[ball]);
             }
             ballContainer[ball] = color;
             colorContainer[color]++;
